@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
+    <title>R Day</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* 🔥 Prevent screen movement */
+      body {
+        height: 100vh;
+        overflow: hidden;
+        transition: opacity 0.8s ease;
+      }
+      .fade-out {
+        opacity: 0;
+      }
+
+      /* ✅ Grid Layout */
+      .container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 100vh;
+        width: 100%;
+        /* ✅ IMPORTANT: not 100vw */
+        gap: 5px;
+        /* spacing between boxes */
+      }
+
+      /* 🔥 Box styling + animation */
+      .box {
+        border: 1px solid black;
+        border-radius: 5px;
+        overflow: hidden;
+
+        /* animation */
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeIn 0.7s ease forwards;
+      }
+
+      /* 🔥 Inner wrapper for hover (no conflict) */
+      .inner {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+      }
+
+      /* 💖 Hover effect */
+      .box:hover .inner {
+        transform: scale(1.05);
+      }
+
+      /* 🖼️ Image full fit */
+      .box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ✨ Fade animation */
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 💖 Hint styling */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+
+        opacity: 0;
+        /* hidden initially */
+        transition: opacity 1s ease;
+      }
+
+      /* ✨ sparkle style */
+      .sparkle {
+        position: absolute;
+        font-size: 16px;
+        animation: sparkleMove 1.5s infinite;
+      }
+
+      /* different positions */
+      .sparkle:nth-child(2) {
+        left: -10px;
+        top: -10px;
+        animation-delay: 0s;
+      }
+
+      .sparkle:nth-child(3) {
+        right: -10px;
+        top: -10px;
+        animation-delay: 0.5s;
+      }
+
+      .sparkle:nth-child(4) {
+        left: 50%;
+        bottom: -10px;
+        animation-delay: 1s;
+      }
+
+      /* ✨ animation */
+      @keyframes sparkleMove {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) translateY(0);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1) translateY(-5px);
+        }
+
+        100% {
+          opacity: 0;
+          transform: scale(0.5) translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Row 1 -->
+      <div class="box">
+        <div class="inner"><img src="Images/1.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/2.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/3.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/4.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/5.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/6.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/7.jpg" /></div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="box">
+        <div class="inner"><img src="Images/8.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/9.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/10.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/11.png" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/12.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/13.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/14.jpg" /></div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="box">
+        <div class="inner"><img src="Images/15.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/16.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/17.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/18.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/19.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/20.jpg" /></div>
+      </div>
+      <div class="box">
+        <div class="inner"><img src="Images/21.jpg" /></div>
+      </div>
+
+      <div class="hint" id="hint">
+        Tap the real princess to continue
+        <span class="sparkle">✨</span>
+        <span class="sparkle">✨</span>
+        <span class="sparkle">✨</span>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const boxes = document.querySelectorAll(".box");
+
+        boxes.forEach((box, index) => {
+          let col = index % 7;
+          let row = Math.floor(index / 7);
+
+          box.style.animationDelay = `${col * 0.3 + row * 0.1}s`;
+        });
+      });
+
+      setTimeout(() => {
+        document.getElementById("hint").style.opacity = "1";
+      }, 3000);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const boxes = document.querySelectorAll(".box");
+
+        // 11th box → index 10
+        boxes[10].style.cursor = "pointer";
+
+        boxes[10].addEventListener("click", () => {
+          document.body.classList.add();
+
+          setTimeout(() => {
+            window.location.href = "Gallery.html";
+          }, 800); // match CSS duration
+        });
+      });
+    </script>
+  </body>
+</html>

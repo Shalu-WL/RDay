@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Security Check</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    font-family:'Quicksand',sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #dff6ff 0%,
+        #ccecff 30%,
+        #b8e3ff 60%,
+        #e7f8ff 100%
+    );
+}
+
+/* Floating decorations */
+
+.decoration{
+    position:absolute;
+    font-size:2rem;
+    pointer-events:none;
+    opacity:.8;
+}
+
+.d1{
+    top:8%;
+    left:10%;
+    animation:float 5s ease-in-out infinite;
+}
+
+.d2{
+    top:15%;
+    right:12%;
+    animation:float 6s ease-in-out infinite;
+}
+
+.d3{
+    bottom:15%;
+    left:12%;
+    animation:float 7s ease-in-out infinite;
+}
+
+.d4{
+    bottom:10%;
+    right:10%;
+    animation:float 5.5s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* Card */
+
+.card{
+    width:80%;
+    max-width:1000px;
+    min-height:450px;
+
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:35px;
+
+    padding:50px;
+
+    text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    box-shadow:
+    0 15px 35px rgba(84,155,255,.15),
+    0 0 60px rgba(173,216,255,.25);
+}
+
+/* Reveal animation */
+
+.reveal{
+    opacity:0;
+    transform:translateY(20px);
+}
+
+.show{
+    animation:fadeUp .8s forwards;
+}
+
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Title */
+
+h1{
+    font-family:'Pacifico',cursive;
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+    background:linear-gradient(
+        90deg,
+        #4f8cff,
+        #74b9ff,
+        #5aa9ff
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* Subtitle */
+
+.subtitle{
+    color:#56749d;
+
+    font-size:1.15rem;
+    font-weight:600;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+}
+
+/* Question */
+
+.question{
+    color:#2f4f7f;
+
+    font-size:1.6rem;
+    font-weight:700;
+
+    margin-bottom:35px;
+}
+
+/* Options */
+
+.options{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.options button{
+
+    border:none;
+
+    padding:15px 28px;
+
+    border-radius:50px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #8fd3ff,
+        #66b3ff
+    );
+
+    color:white;
+
+    font-size:1rem;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:
+    0 8px 20px rgba(102,179,255,.35);
+}
+
+.options button:hover{
+
+    transform:
+    translateY(-5px)
+    scale(1.05);
+
+    box-shadow:
+    0 12px 25px rgba(102,179,255,.5);
+}
+
+/* Result */
+
+#result{
+    display:none;
+
+    margin-top:30px;
+
+    color:#4f8cff;
+
+    font-size:1.4rem;
+    font-weight:700;
+
+    animation:fadeIn .6s;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+.small{
+    font-size:1rem;
+    margin-top:10px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .card{
+        width:92%;
+        padding:35px 20px;
+    }
+
+    h1{
+        font-size:2.2rem;
+    }
+
+    .question{
+        font-size:1.3rem;
+    }
+
+    .options{
+        flex-direction:column;
+        width:100%;
+    }
+
+    .options button{
+        width:100%;
+        max-width:300px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- <div class="decoration d1">☁️</div>
+<div class="decoration d2">🩵</div>
+<div class="decoration d3">🎀</div>
+<div class="decoration d4">✨</div> -->
+
+<div class="card">
+
+    <h1 id="title" class="reveal">
+        🎀 Security Check
+    </h1>
+
+    <p id="subtitle" class="subtitle reveal">
+        Before entering...
+        <br>
+        Our system detected excessive birthday energy.
+        <br>
+        Please verify you're today's princess.
+    </p>
+
+    <h2 id="question" class="question reveal">
+        Who is Shalu's Favorite Person?
+    </h2>
+
+    <div id="options" class="options reveal">
+
+        <button onclick="verify('Correct Answer 😂')">
+            ○ Me
+        </button>
+
+        <button onclick="verify('Also Correct 😂')">
+            ○ Definitely Me
+        </button>
+
+        <button onclick="verify('Most Correct 😂')">
+            ○ Obviously Me
+        </button>
+
+    </div>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+setTimeout(()=>{
+    document.getElementById("title").classList.add("show");
+},300);
+
+setTimeout(()=>{
+    document.getElementById("subtitle").classList.add("show");
+},1200);
+
+setTimeout(()=>{
+    document.getElementById("question").classList.add("show");
+},2200);
+
+setTimeout(()=>{
+    document.getElementById("options").classList.add("show");
+},3200);
+
+function verify(message){
+
+    document.getElementById("options").style.display = "none";
+
+    const result = document.getElementById("result");
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <div>${message}</div>
+        <br>
+        <div>Verification Complete ✅</div>
+        <div class="small">
+            100% Birthday Girl Detected
+        </div>
+    `;
+
+    setTimeout(()=>{
+        window.location.href = "HeartCollector.html";
+    
+    },3000);
+}
+
+</script>
+
+</body>
+</html>

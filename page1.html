@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>R Day</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
+
+    <style>
+      body {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+      }
+
+      h2 {
+        font-family: "Pacifico", cursive;
+        font-size: 40px;
+        color: #ff4d6d;
+        margin-top: 30px;
+      }
+
+      /* Container */
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 55vh;
+        gap: 5%;
+      }
+
+      /* Box */
+      .box {
+        width: 22vw;
+        height: 22vw;
+        perspective: 1000px;
+        cursor: pointer;
+      }
+
+      /* Inner flip */
+      .inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+      }
+
+      .box.open .inner {
+        transform: rotateY(180deg);
+      }
+
+      /* Front & Back */
+      .front,
+      .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9vw;
+        border-radius: 25px;
+        backface-visibility: hidden;
+      }
+
+      /* Front */
+      .front {
+        background: linear-gradient(145deg, #ffd6e0, #ffeaf0);
+        box-shadow: 0 10px 25px rgba(255, 105, 135, 0.3);
+      }
+
+      /* Back */
+      .back {
+        background: #fff;
+        transform: rotateY(180deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Hover */
+      .box:hover {
+        transform: scale(1.05);
+      }
+
+      /* Result text */
+      #result {
+        margin-top: 30px;
+        font-size: 24px;
+        color: #ff4d6d;
+        font-weight: 500;
+      }
+
+      /* Popup */
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+        font-size: 32px;
+        color: #ff4d6d;
+        animation: pop 0.6s ease forwards;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Now Pick a Gift</h2>
+
+    <div class="container">
+      <div class="box" onclick="checkBox(0)">
+        <div class="inner">
+          <div class="front">🎁</div>
+          <div class="back"></div>
+        </div>
+      </div>
+
+      <div class="box" onclick="checkBox(1)">
+        <div class="inner">
+          <div class="front">🎁</div>
+          <div class="back"></div>
+        </div>
+      </div>
+
+      <div class="box" onclick="checkBox(2)">
+        <div class="inner">
+          <div class="front">🎁</div>
+          <div class="back"></div>
+        </div>
+      </div>
+    </div>
+
+    <p id="result"></p>
+
+    <script>
+      let winningBox = Math.floor(Math.random() * 3);
+      let attempts = 0;
+      let maxAttempts = 2;
+      let gameOver = false;
+
+      function checkBox(index) {
+        if (gameOver) return;
+
+        const boxes = document.querySelectorAll(".box");
+        const result = document.getElementById("result");
+
+        const box = boxes[index];
+        const back = box.querySelector(".back");
+
+        // prevent re-click
+        if (box.classList.contains("open")) return;
+
+        // flip animation
+        box.classList.add("open");
+
+        if (index === winningBox) {
+          back.innerText = "🎉";
+          result.innerText = "Yayyy!! 💖 You found it!";
+
+          showCelebration();
+          gameOver = true;
+        } else {
+          back.innerText = "❌";
+          attempts++;
+
+          if (attempts < maxAttempts) {
+            result.innerText = "Oops 😅 Try again!";
+          } else {
+            result.innerText = "Only one left 👀 Try it!";
+
+            // disable wrong boxes
+            boxes.forEach((b, i) => {
+              if (i !== winningBox) {
+                b.style.pointerEvents = "none";
+                b.style.opacity = "0.5";
+              }
+            });
+          }
+        }
+      }
+
+      function showCelebration() {
+        const popup = document.createElement("div");
+        popup.classList.add("popup");
+
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+          window.location.href = "ImagePage.html";
+        }, 2500);
+      }
+    </script>
+  </body>
+</html>

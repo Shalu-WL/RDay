@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>R Day</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Reset */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .split {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Pink Crystal Seam */
+      .split::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        border-radius: 10px;
+
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 205, 225, 0.95),
+          rgba(255, 170, 205, 1),
+          rgba(255, 205, 225, 0.95),
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0)
+        );
+
+        box-shadow:
+          0 0 10px rgba(255, 255, 255, 0.9),
+          0 0 22px rgba(255, 170, 210, 0.8),
+          0 0 38px rgba(255, 120, 190, 0.45);
+
+        z-index: 5;
+        animation: seamGlow 3s ease-in-out infinite;
+      }
+
+      /* Light reflection */
+      .split::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 6;
+      }
+
+      @keyframes seamGlow {
+        50% {
+          filter: brightness(1.25);
+        }
+      }
+
+      /* Left */
+      .left {
+        flex: 1;
+        background: #ffe5ec;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      /* Right */
+      .right {
+        flex: 1;
+        background: linear-gradient(135deg, #ffd6e0, #e7c6ff);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-left: 2px solid rgba(255, 255, 255, 0.4);
+        box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.3);
+      }
+
+      /* Frame */
+      .frame {
+        position: relative;
+        width: 55%;
+        max-width: 700px;
+
+        padding: 10px; /* bigger bottom like polaroid */
+
+        background: linear-gradient(145deg, #ffffff, #f8fbff);
+        border-radius: 28px;
+
+        box-shadow:
+          0 18px 45px rgba(0, 0, 0, 0.14),
+          0 8px 20px rgba(255, 255, 255, 0.7) inset;
+
+        transform: rotate(-3deg);
+        transition: all 0.4s ease;
+      }
+
+      /* Image */
+      .frame img:first-child {
+        width: 100%;
+        /* height: auto; */
+        border-radius: 18px;
+        display: block;
+        object-fit: cover;
+      }
+
+      .frame:hover {
+        transform: rotate(0deg) scale(1.03);
+        box-shadow:
+          0 28px 60px rgba(0, 0, 0, 0.18),
+          0 10px 25px rgba(255, 255, 255, 0.9) inset;
+      }
+      /* Bow */
+      .bow {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 90px;
+        transform: rotate(15deg);
+      }
+
+      /* Heading */
+      h2 {
+        font-family: "Pacifico", cursive;
+        color: #ff4d6d;
+      }
+
+      /* Input */
+      input {
+        padding: 10px;
+        font-size: 22px;
+        text-align: center;
+        border-radius: 15px;
+        border: none;
+        width: 120px;
+        letter-spacing: 10px;
+        font-weight: bold;
+      }
+
+      /* Numpad */
+      .numpad {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        gap: 15px;
+        margin-top: 25px;
+      }
+
+      .numpad button {
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        background: white;
+        color: #ff4d6d;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .numpad button:hover {
+        background: #ffccd5;
+      }
+
+      /* Button */
+      button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        border: none;
+        background: white;
+        color: #ff4d6d;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        transform: scale(1.05);
+      }
+      button:active {
+        transform: scale(0.9);
+      }
+      /* Error */
+      #error {
+        color: red;
+        margin-top: 10px;
+      }
+
+      /* Hint */
+      .hidden {
+        display: none;
+      }
+
+      /* Shake */
+      @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+
+        25% {
+          transform: translateX(-5px);
+        }
+
+        50% {
+          transform: translateX(5px);
+        }
+
+        75% {
+          transform: translateX(-5px);
+        }
+
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .shake {
+        animation: shake 0.3s;
+      }
+
+      * {
+        transition: all 0.2s ease;
+      }
+
+      /* Unlock overlay */
+      .unlock-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background: rgba(255, 192, 203, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Show it */
+      .unlock-screen.show {
+        animation: fadeIn 0.8s forwards;
+      }
+
+      /* Text */
+      .unlock-screen h1 {
+        font-family: "Pacifico", cursive;
+        font-size: 60px;
+        color: #ff4d6d;
+        animation: pop 0.6s ease;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        to {
+          opacity: 2;
+        }
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(0.5);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="split">
+      <!-- LEFT SIDE -->
+      <div class="left">
+        <div class="frame">
+          <img src="Images/Pic3.png" alt="Her Photo" />
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="right">
+        <h2>Only you know this</h2>
+
+        <p id="hint" class="hidden">Hint: It’s your special day 🎂</p>
+
+        <input
+          type="password"
+          id="pin"
+          maxlength="4"
+          readonly
+          placeholder="••••"
+        />
+
+        <!-- Number Pad -->
+        <div class="numpad">
+          <button onclick="addNumber(1)">1</button>
+          <button onclick="addNumber(2)">2</button>
+          <button onclick="addNumber(3)">3</button>
+
+          <button onclick="addNumber(4)">4</button>
+          <button onclick="addNumber(5)">5</button>
+          <button onclick="addNumber(6)">6</button>
+
+          <button onclick="addNumber(7)">7</button>
+          <button onclick="addNumber(8)">8</button>
+          <button onclick="addNumber(9)">9</button>
+
+          <button onclick="clearPin()">C</button>
+          <button onclick="addNumber(0)">0</button>
+          <button onclick="deleteNumber()">⌫</button>
+        </div>
+
+        <br />
+        <button onclick="checkPin()">Unlock</button>
+
+        <p id="error"></p>
+
+        <audio id="clickSound" src="click.mp3"></audio>
+        <audio id="successSound" src="success.mp3"></audio>
+        <audio id="errorSound" src="error.mp3"></audio>
+      </div>
+    </div>
+    <div id="unlockScreen" class="unlock-screen hidden">
+      <h1>Unlocked 💖</h1>
+    </div>
+    <script>
+      let currentPin = "";
+      let attempts = 0;
+
+      function addNumber(num) {
+        if (currentPin.length < 4) {
+          currentPin += num;
+          updateDisplay();
+        }
+      }
+
+      function clearPin() {
+        currentPin = "";
+        updateDisplay();
+      }
+
+      function deleteNumber() {
+        currentPin = currentPin.slice(0, -1);
+        updateDisplay();
+      }
+
+      function updateDisplay() {
+        document.getElementById("pin").value = currentPin;
+      }
+
+      function checkPin() {
+        let error = document.getElementById("error");
+        let hint = document.getElementById("hint");
+        let sound = document.getElementById("errorSound");
+        let input = document.getElementById("pin");
+
+        if (currentPin === "1707") {
+          let success = document.getElementById("successSound");
+          let screen = document.getElementById("unlockScreen");
+
+          success.play();
+
+          // show animation
+          screen.classList.remove("hidden");
+          screen.classList.add("show");
+
+          setTimeout(() => {
+            window.location.href = "humanVerification.html";
+          }, 2000); // wait for sound
+        } else {
+          attempts++;
+          error.innerText = "Try again!!";
+          sound.play();
+
+          input.classList.add("shake");
+          setTimeout(() => input.classList.remove("shake"), 300);
+
+          if (attempts >= 2) {
+            hint.classList.remove("hidden");
+          }
+
+          clearPin();
+        }
+      }
+
+      function playClick() {
+        document.getElementById("clickSound").play();
+      }
+
+      function addNumber(num) {
+        if (currentPin.length < 4) {
+          currentPin += num;
+          updateDisplay();
+          playClick(); // 👈 sound here
+        }
+      }
+    </script>
+  </body>
+</html>

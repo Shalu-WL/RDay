@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart Collector 💖</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Quicksand',sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #dff6ff,
+        #cdeeff,
+        #e9f9ff
+    );
+}
+
+.container{
+    text-align:center;
+    z-index:10;
+}
+
+h1{
+    font-family:'Pacifico',cursive;
+    color:#4f8cff;
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.goal{
+    color:#45689a;
+    font-size:1.2rem;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.score{
+    color:#4f8cff;
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+.timer{
+    margin-top:12px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#ff69b4;
+}
+
+.heart{
+    position:absolute;
+    cursor:pointer;
+    user-select:none;
+
+    animation:
+        floatUp 4s linear forwards,
+        pulse 1.2s infinite;
+}
+
+@keyframes floatUp{
+
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-150px);
+        opacity:.2;
+    }
+}
+
+@keyframes pulse{
+
+    50%{
+        transform:scale(1.15);
+    }
+}
+
+.popup{
+
+    position:absolute;
+    color:#ff69b4;
+    font-weight:700;
+    pointer-events:none;
+
+    animation:popup 1s forwards;
+}
+
+@keyframes popup{
+
+    from{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    to{
+        opacity:0;
+        transform:translateY(-40px);
+    }
+}
+
+.result{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(255,255,255,.95);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:1s;
+}
+
+.result.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.result-card{
+
+    background:white;
+
+    width:90%;
+    max-width:500px;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.1);
+}
+
+.result-card h2{
+    color:#ff69b4;
+    margin-bottom:15px;
+}
+
+.result-card p{
+    color:#35507a;
+    font-size:1.1rem;
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+.buttons{
+    margin-top:15px;
+}
+
+button{
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:40px;
+
+    background:linear-gradient(
+        135deg,
+        #6dbfff,
+        #4f8cff
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    margin:5px;
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Heart Collector</h1>
+
+    <div class="goal">
+        Goal: Collect 5 Hearts <br> <br>
+        <p>(click the hearts to collect)</p>
+    </div>
+    <br>
+    <div class="score">
+        Collected: <span id="count">0</span> / 5
+    </div>
+
+    <div class="timer">
+        ⏰ Time Left: <span id="timer">20</span>s
+    </div>
+
+</div>
+
+<div class="result" id="result">
+
+    <div class="result-card">
+
+        <h2>💖 Analysis Complete 💖</h2>
+
+        <p>You successfully stole 5 hearts today.</p>
+
+        <p>Including Shalu's heart. 😌💙</p>
+
+        <p>Authorities have been notified.</p>
+
+        <p>Crime: Being too adorable. 😂</p>
+
+        <div class="buttons">
+            <button onclick="nextPage()">
+                Continue ➜
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let score = 0;
+const target = 5;
+
+let timeLeft = 20;
+
+const hearts = ["💖","💗","💝","🩷","💜"];
+
+const timerElement = document.getElementById("timer");
+
+const timerInterval = setInterval(() => {
+
+    timeLeft--;
+
+    timerElement.textContent = timeLeft;
+
+    if(timeLeft <= 0){
+
+        clearInterval(timerInterval);
+
+        if(score < target){
+            endGame();
+            document.querySelector(".result-card").innerHTML = `
+
+                <h2>⏰ Time's Up!</h2>
+
+                <p>You stolen ${score} hearts today.</p>
+                <p>Including Mine. 😌💙</p>
+                <p>Required: ${target} hearts to pass.</p>
+
+                <p>but Princesses can pass anyway. 👑😂</p>
+
+
+                <div class="buttons">
+
+                    <button onclick="location.reload()">
+                        Try Again 🔄
+                    </button>
+
+                    <button onclick="nextPage()">
+                        Continue ➜
+                    </button>
+
+                </div>
+
+            `;
+
+            document
+                .getElementById("result")
+                .classList
+                .add("show");
+        }
+    }
+
+},1000);
+
+function createHeart(){
+
+    if(score >= target) return;
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * (window.innerWidth - 60) + "px";
+
+    heart.style.top =
+        Math.random() * (window.innerHeight - 60) + "px";
+
+    heart.style.fontSize =
+        (30 + Math.random() * 25) + "px";
+
+    heart.onclick = () => {
+
+        score++;
+
+        document.getElementById("count").textContent = score;
+
+        showPopup(
+            heart.offsetLeft,
+            heart.offsetTop
+        );
+
+        heart.remove();
+
+        if(score >= target){
+            endGame();
+            clearInterval(timerInterval);
+
+            setTimeout(() => {
+
+                document.querySelector(".result-card").innerHTML = `
+
+                    <h2>💖 Analysis Complete 💖</h2>
+
+                    <p>You successfully stole 5 hearts today.</p>
+
+                    <p>Including Mine. 😌💙</p>
+
+                    <p>Authorities have been notified.</p>
+
+                    <p>Crime: Being too adorable. 😂</p>
+
+                    <div class="buttons">
+
+                        <button onclick="nextPage()">
+                            Continue ➜
+                        </button>
+
+                    </div>
+
+                `;
+
+                document
+                    .getElementById("result")
+                    .classList
+                    .add("show");
+
+            },500);
+        }
+    };
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    },4000);
+}
+
+function showPopup(x,y){
+
+    const popup = document.createElement("div");
+
+    popup.className = "popup";
+
+    popup.innerHTML = "+1 💖";
+
+    popup.style.left = x + "px";
+    popup.style.top = y + "px";
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+
+        popup.remove();
+
+    },1000);
+}
+
+const heartSpawner = setInterval(createHeart,700);
+function endGame(){
+
+    clearInterval(timerInterval);
+
+    clearInterval(heartSpawner);
+
+    document.querySelectorAll(".heart").forEach(heart=>{
+        heart.remove();
+    });
+
+    document.querySelector(".container").style.display = "none";
+}
+
+function nextPage(){
+
+    //alert("Heart Collection Approved 💖");
+
+    window.location.href = "page1.html";
+}
+
+</script>
+
+</body>
+</html>

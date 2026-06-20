@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Official Friendship Agreement 🍦</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 25px;
+
+        font-family: "Quicksand", sans-serif;
+
+        background: linear-gradient(135deg, #dff6ff, #bde8ff, #dff6ff);
+      }
+
+      .contract {
+        width: 90%;
+        max-width: 900px;
+
+        background: #fffdf7;
+
+        border: 4px solid #8bbfff;
+
+        border-radius: 25px;
+
+        padding: 40px;
+
+        position: relative;
+
+        box-shadow: 0 20px 50px rgba(79, 140, 255, 0.15);
+      }
+
+      .title {
+        text-align: center;
+
+        font-size: 2.2rem;
+
+        color: #4f8cff;
+
+        letter-spacing: 2px;
+
+        font-weight: 700;
+
+        margin-bottom: 10px;
+      }
+
+      .doc {
+        text-align: center;
+
+        color: #56749d;
+
+        margin-bottom: 30px;
+      }
+
+      .intro {
+        color: #35507a;
+
+        line-height: 1.8;
+
+        margin-bottom: 25px;
+      }
+
+      .line {
+        border-top: 2px dashed #b7dcff;
+
+        margin: 20px 0;
+      }
+
+      .clause-title {
+        font-size: 1.4rem;
+
+        font-weight: 700;
+
+        color: #4f8cff;
+
+        margin-bottom: 15px;
+      }
+
+      .clause {
+        color: #35507a;
+
+        line-height: 1.8;
+      }
+
+      .warning {
+        margin-top: 25px;
+
+        color: #35507a;
+
+        line-height: 1.8;
+      }
+
+      .signature {
+        margin-top: 30px;
+      }
+
+      .signature label {
+        display: block;
+
+        margin-bottom: 10px;
+
+        font-weight: 700;
+
+        color: #35507a;
+      }
+
+      .signature input {
+        width: 100%;
+
+        max-width: 350px;
+
+        padding: 14px;
+
+        border: 2px solid #8bbfff;
+
+        border-radius: 12px;
+
+        font-size: 1rem;
+
+        outline: none;
+      }
+
+      .signature input:focus {
+        border-color: #4f8cff;
+      }
+
+      .witness {
+        margin-top: 25px;
+
+        color: #35507a;
+      }
+
+      .witness span {
+        font-family: "Pacifico", cursive;
+
+        font-size: 1.8rem;
+
+        color: #4f8cff;
+      }
+
+      .buttons {
+        margin-top: 30px;
+
+        display: flex;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: none;
+
+        padding: 14px 28px;
+
+        border-radius: 50px;
+
+        background: linear-gradient(135deg, #6dbfff, #4f8cff);
+
+        color: white;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+      }
+
+      .stamp {
+        position: absolute;
+
+        top: 25px;
+        right: 25px;
+
+        width: 120px;
+        height: 120px;
+
+        border: 5px solid #4f8cff;
+
+        border-radius: 50%;
+
+        display: none;
+
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        color: #4f8cff;
+
+        font-weight: 700;
+
+        transform: rotate(-15deg);
+
+        background: white;
+      }
+
+      .success {
+        margin-top: 30px;
+
+        display: none;
+
+        text-align: center;
+
+        color: #35507a;
+
+        line-height: 2;
+      }
+
+      .success h2 {
+        color: #4f8cff;
+      }
+
+      .continue-btn {
+        margin-top: 25px;
+      }
+
+      #signedName {
+        margin-top: 15px;
+
+        color: #4f8cff;
+
+        font-weight: 700;
+      }
+
+      .signed-area {
+        margin-top: 15px;
+        position: relative;
+        min-height: 2px;
+      }
+
+      .seal {
+        width: 120px;
+
+        position: absolute;
+
+        top: -20px;
+        left: 220px;
+
+        opacity: 0;
+
+        transform: scale(3) rotate(-25deg);
+
+        pointer-events: none;
+      }
+
+      .receipt-modal {
+        position: fixed;
+
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.45);
+
+        display: none;
+
+        justify-content: center;
+
+        align-items: center;
+
+        z-index: 9999;
+      }
+
+      .receipt {
+        background: white;
+
+        width: 90%;
+
+        max-width: 700px;
+
+        padding: 35px;
+
+        border-radius: 20px;
+
+        text-align: center;
+      }
+
+      .receipt h2 {
+        color: #4f8cff;
+
+        margin-bottom: 10px;
+      }
+
+      .receipt-number {
+        color: #56749d;
+
+        margin-bottom: 15px;
+      }
+
+      .receipt-line {
+        height: 2px;
+
+        background: #cfe8ff;
+
+        margin: 20px 0;
+      }
+
+      .date-time {
+        display: flex;
+
+        justify-content: space-between;
+
+        font-weight: 700;
+
+        color: #35507a;
+      }
+
+      .receipt-signatures {
+        display: flex;
+
+        justify-content: space-between;
+
+        margin-top: 20px;
+
+        text-align: center;
+      }
+
+      .receipt-cursive {
+        font-family: "Pacifico", cursive;
+
+        font-size: 2rem;
+
+        color: #4f8cff;
+      }
+
+      .receipt-buttons {
+        margin-top: 25px;
+
+        display: flex;
+
+        justify-content: center;
+
+        gap: 15px;
+      }
+
+      .action-buttons {
+        display: none;
+
+        justify-content: center;
+
+        gap: 15px;
+
+        margin-top: 25px;
+
+        flex-wrap: wrap;
+      }
+
+      @keyframes stamp {
+        0% {
+          opacity: 0;
+          transform: scale(3) rotate(-25deg);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(0.8) rotate(-15deg);
+        }
+
+        70% {
+          transform: scale(1.1) rotate(-15deg);
+        }
+
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(-15deg);
+        }
+      }
+
+      .seal.show {
+        animation: stamp 0.6s ease forwards;
+      }
+
+      @media (max-width: 768px) {
+        .title {
+          font-size: 1.7rem;
+        }
+
+        .contract {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contract">
+      <div class="stamp" id="stamp"></div>
+
+      <h1 class="title">🍦 OFFICIAL ICE CREAM AGREEMENT 🍦</h1>
+
+      <div class="doc">Document No: BDAY-2026-ICECREAM-17</div>
+
+      <div class="intro">
+        Attention Birthday Girl,
+
+        <br /><br />
+
+        Following a thorough review of recent events,
+        including suspicious levels of kindness,
+        <br /><br />
+
+        it has been concluded that one final birthday duty must be officially documented.
+      </div>
+
+      <div class="line"></div>
+
+      <div class="clause-title">CLAUSE 17</div>
+
+      <div class="clause">
+        The Birthday Girl agrees to provide
+
+        <br /><br />
+
+        <strong>One (1) Ice Cream 🍦 per day</strong>
+
+        <br /><br />
+
+        to Shalu 💙
+
+        <br /><br />
+
+        within a reasonable time frame. Bonus rewards in the form of momos are
+        welcomed and greatly appreciated. Failure to remember this agreement
+        shall not invalidate the agreement. "I forgot" is not recognized as a
+        valid legal defense.
+      </div>
+
+      <div class="line"></div>
+
+      <div class="warning">
+        Failure to comply may result in:
+
+        <br /><br />
+
+        • A penalty of ten (10) additional ice creams 🍦
+
+        <br />
+
+        • One complimentary plate of momos 🥟
+
+        <br />
+
+        • No appeals, excuses, or postponements accepted 📜
+      </div>
+
+      <div class="line"></div>
+
+      <div class="signature">
+        <label>Birthday Girl Signature</label>
+
+        <input
+          type="text"
+          id="signature"
+          placeholder="Enter your name here..."
+        />
+
+        <div id="signedArea" class="signed-area">
+          <div id="signedName"></div>
+
+          <img
+            src="Images/Approved.png"
+            id="seal"
+            class="seal"
+            alt="Approved"
+          />
+        </div>
+
+        <div class="witness">
+          Witness
+
+          <br />
+
+          <span>Shalu</span>
+        </div>
+      </div>
+      <div class="buttons">
+        <button onclick="signContract()">🍦 Accept Contract</button>
+
+        <button onclick="signContract()">🍦🍦 Accept Happily</button>
+      </div>
+
+      <div class="success" id="success">
+        <h2>Contract Signed Successfully ✅</h2>
+
+        <br />
+
+        Thank you for being such a big-hearted friend
+        <br />
+        I hope you accepted this contract with your own heart and not under
+        pressure. 😌
+        <br />
+        Any future claims of "I didn't read the terms" shall be considered
+        invalid
+        <br /><br />
+      </div>
+      <div class="action-buttons">
+        <button id="continueBtn" onclick="nextPage()">Continue</button>
+
+        <button id="receiptBtn" onclick="openReceipt()">Evidence Against You</button>
+      </div>
+    </div>
+
+    <div class="receipt-modal" id="receiptModal">
+      <div class="receipt" id="receiptContent">
+        <h2>ICE CREAM AGREEMENT PROOF</h2>
+
+        <div class="receipt-number">Document No: 2026-ICECREAM-17</div>
+
+        <div class="receipt-line"></div>
+
+        <p>
+            I hereby acknowledge that I willingly accepted this agreement with <br> <br> my whole heart and of my own free will.
+        </p>
+
+        <br />
+
+        <p> "Any future ice cream obligations are hereby accepted"</p>
+
+        <br />
+
+        <div class="date-time">
+          <span id="receiptDate"></span>
+
+          <span id="receiptTime"></span>
+        </div>
+
+        <div class="receipt-line"></div>
+
+        <div class="receipt-signatures">
+          <div>
+            <h4>Witnessed By</h4>
+            <div class="receipt-cursive">Shalu</div>
+          </div>
+
+          <div>
+            <h4>Signed By</h4>
+
+            <div id="receiptSignature" class="receipt-cursive"></div>
+          </div>
+        </div>
+
+        <div class="receipt-buttons">
+          <button onclick="downloadReceipt()">Download My Mistake</button>
+
+          <button onclick="closeReceipt()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let signedDate = "";
+      let signedTime = "";
+      let signedName = "";
+
+      function signContract() {
+        const name = document.getElementById("signature").value.trim();
+
+        if (name === "") {
+          alert("Please enter your signature first");
+
+          return;
+        }
+        if (name.toLowerCase() !== "renu" && name.toLowerCase() !== "renuga" && name.toLowerCase() !== "renuga devi") {
+          alert("Birthday Girl Not Found. Nice try 😂");
+          return;
+        }
+        signedName = name;
+
+        const now = new Date();
+
+        signedDate = now.toLocaleDateString("en-GB");
+
+        signedTime = now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        document.getElementById("signedName").innerHTML =
+          "✓ Digitally Signed by <b>" +
+          name +
+          "</b><br><br>" +
+          "📅 Signed on: " +
+          signedDate +
+          "<br>" +
+          "🕒 Time: " +
+          signedTime;
+        document.getElementById("success").style.display = "block";
+
+        document.querySelector(".action-buttons").style.display = "flex";
+
+        const seal = document.getElementById("seal");
+
+        seal.classList.add("show");
+      }
+
+      function openReceipt() {
+        document.getElementById("receiptSignature").textContent = signedName;
+
+        document.getElementById("receiptDate").textContent = "📅 " + signedDate;
+
+        document.getElementById("receiptTime").textContent = "🕒 " + signedTime;
+
+        document.getElementById("receiptModal").style.display = "flex";
+      }
+      function closeReceipt() {
+        document.getElementById("receiptModal").style.display = "none";
+      }
+      async function downloadReceipt() {
+        const receipt = document.getElementById("receiptContent");
+
+        const canvas = await html2canvas(receipt, {
+          scale: 2,
+        });
+
+        const img = canvas.toDataURL("image/png");
+
+        const { jsPDF } = window.jspdf;
+
+        const pdf = new jsPDF();
+
+        const width = pdf.internal.pageSize.getWidth();
+
+        const height = canvas.height * (width / canvas.width);
+
+        pdf.addImage(img, "PNG", 0, 10, width, height);
+
+        pdf.save(signedName + "_IceCreamReceipt.pdf");
+      }
+      function nextPage() {
+        //alert("Heart Collection Approved 💖");
+
+        window.location.href = "index.html";
+      
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </body>
+</html>
